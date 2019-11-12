@@ -1,14 +1,14 @@
-import tmp
+from tmp import temp
 from github import Github
 
 # using username and password
-password = tmp.getPass()
+password = temp.getPass()
 g = Github("kamilprz", password)
 user = g.get_user()
 
 def main():
   followers = getFollowers(user)
-  print(followers[0].get_followers())
+  print(followers)
 
 def getFollowers(user):
     followers = []
