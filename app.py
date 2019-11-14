@@ -10,10 +10,8 @@ app= Flask(__name__)
 
 @app.route("/")
 def index():
-    # createFollowerGraph()
-    # return render_template("index.html")
-    return '<h1>Hello!</h1>'
-
+    graph = createFollowerGraph()
+    render_template("index.html", graph = graph)
 
 def createFollowerGraph():
     followersGraph = readInFile('graph.json')

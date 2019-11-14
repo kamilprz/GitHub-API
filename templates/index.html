@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,11 +44,8 @@
         .force("charge", d3.forceManyBody())
         .force("center", d3.forceCenter(width / 2, height / 2));
 
-    // JUST PASS GRAPH.JSON HERE??
-    d3.json("graph.json", function (error, graph) {
-        if (error) throw error;
-        update(graph.links, graph.nodes);
-    })
+    var graph = JSON.parse('{{ graph | tojson | safe}}');
+    update(graph.links, graph.nodes);
 
     function update(links, nodes) {
         link = svg.selectAll(".link")
