@@ -1,4 +1,5 @@
 from tmp import temp
+import json
 from github import Github
 
 # using username and password
@@ -11,10 +12,26 @@ repoAddress = "nating/cs-exams"
 def main():
     repo = g.get_repo(repoAddress)
     contributorUsers = repo.get_contributors()
-    # contributorNames = [getUserName(x) for x in repo.get_contributors()]
+    contributorNames = [getUserName(x) for x in repo.get_contributors()]
+    graphData = {}
+    graphData["nodes"] = []
+    graphData["links"] = []
 
     for x in contributorUsers:
         followers = intersection(contributorUsers, x.get_followers())
+        graphData["nodes"].append({
+            'name' : x.login,
+            'id' : contributorNames.index(x.login)
+        })
+        
+        for f in followers:
+           graphData["links"].append({
+            'source' : contributorNames.index(f.login),
+            'target' : contributorNames.index(x.login)
+        }) 
+
+    with open('data.json', 'w') as outfile:
+        json.dump(graphData, outfile)
 
 
 def getFollowers(user):

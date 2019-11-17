@@ -14,7 +14,7 @@ def index():
     return render_template("index.html", graph = graph)
 
 def createFollowerGraph():
-    followersGraph = readInFile('graph.json')
+    followersGraph = readInFile('data.json')
     return followersGraph
 
 
