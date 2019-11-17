@@ -96,7 +96,9 @@
             .text(function (d) {return d.id;});
         node.append("text")
             .attr("dy", -3)
-            .text(function (d) {return d.name+":"+d.label;});
+            // don't display a label
+            // .text(function (d) {return d.name+":"+d.label;});
+            .text(function (d) {return d.name;});
         simulation
             .nodes(nodes)
             .on("tick", ticked);
