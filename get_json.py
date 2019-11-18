@@ -34,14 +34,6 @@ def main():
         json.dump(graphData, outfile)
 
 
-def getFollowers(user):
-    followers = {}
-    index = 0
-    for follower in user.get_followers():
-        followers[str(index)] = follower
-        index = index + 1
-    return followers
-
 def getUserName(user):
     username = user.login
     return username
