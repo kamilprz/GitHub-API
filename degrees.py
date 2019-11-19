@@ -2,17 +2,20 @@ from tmp import temp
 import json
 from github import Github
 
+
 # using username and password
 password = temp.getPass()
 g = Github("kamilprz", password)
 user = g.get_user()
 
-sourceUser = "kamilprz"
-targetUser = "gkoberger"
+sourceUser = "henrym2"
+targetUser = "sasunts"
 
 def main():
     source = g.get_user(sourceUser)
     target = g.get_user(targetUser)
+
+    print(degreesOfSep([source], [target], 1))
 
     # srcFollowing = source.get_following()
     # for x in srcFollowing:
@@ -27,16 +30,24 @@ def main():
     # check if source and target are in the contributors
 
 def degreesOfSep(list1, list2, lvl):
-    if lvl > 6:
+    if lvl > 3:
         return -1
     # lvl odd so increment followers
     if lvl % 2 != 0:
-        followers = [getFollowers(f) for f in list1]
-        followers = [item for subl in followers for item in subl]
+        links = [getFollowers(f) for f in list1]        
+        print("Followers - {} ".format(lvl))
     # lvl even so increment following         
     else:
-        following = [getFollowing(f) for f in list1]
-        following = [item for subl in following for item in subl]
+        links = [getFollowing(f) for f in list1]
+        print("Followingi - {} ".format(lvl))
+
+    links = [item for subl in links for item in subl]
+
+    n = intersection(links, list2)
+    #print(n)
+    if n:
+        return(lvl, n)
+    return degreesOfSep(list2, links, lvl+1)
 
 
 def getFollowers(user):
