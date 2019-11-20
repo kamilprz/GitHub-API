@@ -32,11 +32,11 @@ def main():
 def degreesOfSep(list1, list2, lvl):
     if lvl > 3:
         return -1
-    # lvl odd so increment followers
-    if lvl % 2 != 0:
+    # lvl even so increment followers
+    if lvl % 2 == 0:
         links = [getFollowers(f) for f in list1]        
         print("Followers - {} ".format(lvl))
-    # lvl even so increment following         
+    # lvl odd so increment following         
     else:
         links = [getFollowing(f) for f in list1]
         print("Followingi - {} ".format(lvl))
