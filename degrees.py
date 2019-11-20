@@ -61,8 +61,8 @@ def getFollowing(user):
 
 
 def intersection(lst1, lst2): 
-    lst3 = [value for value in lst1 if value in lst2] 
-    return lst3 
+    lst3 = set.intersection(set(lst1), set(lst2)) 
+    return list(lst3) 
 
 
 main()
