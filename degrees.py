@@ -9,13 +9,16 @@ g = Github("kamilprz", password)
 user = g.get_user()
 
 sourceUser = "henrym2"
-targetUser = "sasunts"
+targetUser = "s-oravec"
+
 
 def main():
     source = g.get_user(sourceUser)
     target = g.get_user(targetUser)
 
-    print(degreesOfSep([source], [target], 1))
+    lista = []
+
+    print(degreesOfSep([source], [target], 1, lista))
 
     # srcFollowing = source.get_following()
     # for x in srcFollowing:
@@ -29,34 +32,59 @@ def main():
     
     # check if source and target are in the contributors
 
-def degreesOfSep(list1, list2, lvl):
-    if lvl > 3:
+def degreesOfSep(source, target, lvl, lista):
+    if lvl > 4:
         return -1
-    # lvl even so increment followers
+    # lvl odd so increment followers
     if lvl % 2 == 0:
-        links = [getFollowers(f) for f in list1]        
+        compare = [getFollowers(f) for f in target]        
         print("Followers - {} ".format(lvl))
-    # lvl odd so increment following         
+        links = source
+        compare = [item for subl in compare for item in subl]
+    # lvl even so increment following         
     else:
-        links = [getFollowing(f) for f in list1]
+        links = [getFollowing(f) for f in source]
         print("Followingi - {} ".format(lvl))
+        compare = target
+        links = [item for subl in links for item in subl]
+    
+    #print("lista {} ".format(str(links)))
+    #print("lista2 {}".format(str(list2)))
 
-    links = [item for subl in links for item in subl]
-
-    n = intersection(links, list2)
-    #print(n)
+    n = intersection(links, compare)
+    print(n)
     if n:
-        return(lvl, n)
-    return degreesOfSep(list2, links, lvl+1)
+        first = n[0]
+        parent = links[links.index(first)].parent
+        lista = []
+        return(parent, first, lista)
+    (parent, child, lista) = degreesOfSep(links, compare, lvl+1, lista)
+    print("wyjscie")
+    if lvl % 2 == 0:
+        print(compare.index(child))
+        lista =  lista + [compare[compare.index(child)].login]
+        child = compare[compare.index(child)].child
+        print(child)
+    else:
+        print(links.index(parent))
+        lista = [links[links.index(parent)].login] + lista 
+        parent = links[links.index(parent)].parent
+        print(parent)
+        
+    return (parent, child, lista)
 
 
 def getFollowers(user):
     followers = user.get_followers()
+    for i in followers:
+        i.child = user
     return followers
 
 
 def getFollowing(user):
     following = user.get_following()
+    for i in following:
+        i.parent = user
     return following
 
 
