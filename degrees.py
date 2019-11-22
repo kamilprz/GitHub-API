@@ -8,7 +8,7 @@ password = temp.getPass()
 g = Github("kamilprz", password)
 user = g.get_user()
 
-sourceUser = "henrym2"
+sourceUser = "kamilprz"
 targetUser = "sasunts"
 
 def main():
