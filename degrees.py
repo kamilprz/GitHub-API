@@ -8,8 +8,12 @@ password = temp.getPass()
 g = Github("kamilprz", password)
 user = g.get_user()
 
-sourceUser = "henrym2"
-targetUser = "s-oravec"
+sourceUser = "kamilprz"
+targetUser = "pioro"
+targetUser = "jberesni"
+targetUser = "felipebz" 
+targetUser = "s-oravec" 
+targetUser = "khailey"
 
 
 def main():
@@ -33,8 +37,8 @@ def main():
     # check if source and target are in the contributors
 
 def degreesOfSep(source, target, lvl, lista):
-    if lvl > 4:
-        return -1
+    if lvl > 1:
+        return (-1, -1, -1)
     # lvl odd so increment followers
     if lvl % 2 == 0:
         compare = [getFollowers(f) for f in target]        
@@ -54,21 +58,47 @@ def degreesOfSep(source, target, lvl, lista):
     n = intersection(links, compare)
     print(n)
     if n:
+        # take first of intersction
         first = n[0]
-        parent = links[links.index(first)].parent
-        lista = []
-        return(parent, first, lista)
+        # start a list
+        lista = [first.login]
+        # as intersection can return any of user
+        # take a parent from list with parents
+        # take child from a list with childs
+        parent = links[links.index(first)]
+        child = compare[compare.index(first)]
+
+        # check if we are at begining of chain
+        if hasattr(parent, "parent"):
+            parent = parent.parent
+        else:
+            lista = []
+
+        if hasattr(child, "child"):
+            child = child.child
+        else:
+            lista = []
+            
+        return(parent, child, lista)
     (parent, child, lista) = degreesOfSep(links, compare, lvl+1, lista)
+    if parent == -1:
+        return -1
     print("wyjscie")
     if lvl % 2 == 0:
-        print(compare.index(child))
-        lista =  lista + [compare[compare.index(child)].login]
-        child = compare[compare.index(child)].child
+        # if child is not end user - add child to list
+        if ([child] != target):
+            lista = lista + [child.login]
+            child = child.child
         print(child)
     else:
-        print(links.index(parent))
-        lista = [links[links.index(parent)].login] + lista 
-        parent = links[links.index(parent)].parent
+        # if parent is not start user - add parent to list
+        if ([parent] != source):
+            # lista = [links[links.index(parent)].login] + lista 
+            # parent = links[links.index(parent)].parent
+            lista = [parent.login] + lista
+            parent = parent.parent
+            
+            
         print(parent)
         
     return (parent, child, lista)
