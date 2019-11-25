@@ -22,7 +22,14 @@ def main():
 
     lista = []
 
-    print(degreesOfSep([source], [target], 1, lista))
+    path = (degreesOfSep([source], [target], 1, lista)[2])
+    path = [source.login] + path + [target.login]
+    
+    print(path)
+
+    graphData = createGraphJson(path)
+    with open('path.json', 'w') as outfile:
+        json.dump(graphData, outfile)
 
     # srcFollowing = source.get_following()
     # for x in srcFollowing:
@@ -37,18 +44,18 @@ def main():
     # check if source and target are in the contributors
 
 def degreesOfSep(source, target, lvl, lista):
-    if lvl > 1:
+    if lvl > 6:
         return (-1, -1, -1)
     # lvl odd so increment followers
     if lvl % 2 == 0:
         compare = [getFollowers(f) for f in target]        
-        print("Followers - {} ".format(lvl))
+        #print("Followers - {} ".format(lvl))
         links = source
         compare = [item for subl in compare for item in subl]
     # lvl even so increment following         
     else:
         links = [getFollowing(f) for f in source]
-        print("Followingi - {} ".format(lvl))
+        #print("Followingi - {} ".format(lvl))
         compare = target
         links = [item for subl in links for item in subl]
     
@@ -56,7 +63,7 @@ def degreesOfSep(source, target, lvl, lista):
     #print("lista2 {}".format(str(list2)))
 
     n = intersection(links, compare)
-    print(n)
+    #print(n)
     if n:
         # take first of intersction
         first = n[0]
@@ -83,13 +90,13 @@ def degreesOfSep(source, target, lvl, lista):
     (parent, child, lista) = degreesOfSep(links, compare, lvl+1, lista)
     if parent == -1:
         return -1
-    print("wyjscie")
+    #print("wyjscie")
     if lvl % 2 == 0:
         # if child is not end user - add child to list
         if ([child] != target):
             lista = lista + [child.login]
             child = child.child
-        print(child)
+        #print(child)
     else:
         # if parent is not start user - add parent to list
         if ([parent] != source):
@@ -99,7 +106,7 @@ def degreesOfSep(source, target, lvl, lista):
             parent = parent.parent
             
             
-        print(parent)
+        #print(parent)
         
     return (parent, child, lista)
 
@@ -121,6 +128,26 @@ def getFollowing(user):
 def intersection(lst1, lst2): 
     lst3 = set.intersection(set(lst1), set(lst2)) 
     return list(lst3) 
+
+
+def createGraphJson(path):
+    graphData = {}
+    graphData["nodes"] = []
+    graphData["links"] = []
+
+    for user in path:
+        graphData["nodes"].append({
+            'name' : user,
+            'id' : path.index(user)
+        })
+        
+    for i in range(len(path) - 1):
+        graphData["links"].append({
+        'source' : i,
+        'target' : i+1
+        })
+
+    return graphData
 
 
 main()
