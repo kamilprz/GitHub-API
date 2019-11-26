@@ -21,33 +21,17 @@
     </h2> 
   
     <p> 
-      This graph represents all the contributors to the repository: <b>{{repo}}</b> and the connections between them, based on GitHub follwers.<br>
-      Please enter two usernames separated by a comma and click the button below to see the shortest path between them, if one exists below 
-      6 degrees of separation.
+      This is a graphical representation of the path between <b>{{sourceUser}}</b> and <b>{{targetUser}}</b> who are both contributors to the repo <b>{{repo}}</b>. <br>
+      If you wish to go back to the graph of contributors, please click the button below.
     </p> 
   
-    Name: 
-    <input type="text"
-           id="myText"
-           value=""> 
-  
     <button type="button" 
-        onclick="myFunction()"> 
-        Go! 
+        onclick="location.href = '/'"> 
+        See Contributors
     </button> 
   
     <p id="demo"></p> 
-  
-    <script> 
-        function myFunction() { 
-            var x =  
-                document.getElementById("myText").value; 
-            
-            document.getElementById( 
-              "demo").innerHTML = x; 
-            location.href = '/degrees';
-        } 
-    </script> 
+
 
 
 <svg width="1900" height="700" id="svg1" style="border:1px solid green"></svg>

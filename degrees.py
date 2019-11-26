@@ -25,7 +25,7 @@ def main():
     path = (degreesOfSep([source], [target], 1, lista)[2])
     path = [source.login] + path + [target.login]
     
-    print(path)
+    # print(path)
 
     graphData = createGraphJson(path)
     with open('path.json', 'w') as outfile:
