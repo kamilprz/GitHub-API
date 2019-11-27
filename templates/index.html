@@ -26,30 +26,13 @@
       6 degrees of separation.
     </p> 
   
-    Name: 
-    <input type="text"
-           id="myText"
-           value=""> 
-  
-    <button type="button" 
-        onclick="myFunction()"> 
-        Go! 
-    </button> 
-  
-    <p id="demo"></p> 
-  
-    <script> 
-        function myFunction() { 
-            var x =  
-                document.getElementById("myText").value; 
-            
-            document.getElementById( 
-              "demo").innerHTML = x; 
-            location.href = '/degrees';
-        } 
-    </script> 
-
-
+    <form action="{{ url_for('index2') }}" method="post">
+        <input type="text" name="source">
+        <input type="text" name="target">
+        <input type="submit">
+    </form>
+    <p></p>
+    
 <svg width="1900" height="700" id="svg1" style="border:1px solid green"></svg>
 
 

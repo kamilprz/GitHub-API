@@ -7,7 +7,7 @@ import sys
 import json
 
 from get_json import repoAddress
-from degrees import sourceUser, targetUser
+from degrees import*
  
 app= Flask(__name__)
 
@@ -17,10 +17,13 @@ def index():
     return render_template("index.html", graph = graph, repo = repoAddress)
 
 
-@app.route("/degrees")
+@app.route("/degrees", methods=['POST'])
 def index2():
+    source = request.form['source']
+    target = request.form['target']
+    generateDegrees(source, target)
     graph = createPathGraph()
-    return render_template("index2.html", graph = graph, repo = repoAddress, sourceUser = sourceUser, targetUser = targetUser)
+    return render_template("index2.html", graph = graph, repo = repoAddress, sourceUser = source, targetUser = target)
 
 def createFollowerGraph():
     followersGraph = readInFile('data.json')

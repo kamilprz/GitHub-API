@@ -8,15 +8,7 @@ password = temp.getPass()
 g = Github("kamilprz", password)
 user = g.get_user()
 
-sourceUser = "kamilprz"
-targetUser = "pioro"
-targetUser = "jberesni"
-targetUser = "felipebz" 
-targetUser = "s-oravec" 
-targetUser = "khailey"
-
-
-def main():
+def generateDegrees(sourceUser, targetUser):
     source = g.get_user(sourceUser)
     target = g.get_user(targetUser)
 
@@ -24,8 +16,6 @@ def main():
 
     path = (degreesOfSep([source], [target], 1, lista)[2])
     path = [source.login] + path + [target.login]
-    
-    # print(path)
 
     graphData = createGraphJson(path)
     with open('path.json', 'w') as outfile:
@@ -148,6 +138,3 @@ def createGraphJson(path):
         })
 
     return graphData
-
-
-main()
