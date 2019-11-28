@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type="text/css">
+        .node {}
+        .link { stroke: #999; stroke-opacity: .6; stroke-width: 1px; }
+    </style>
+</head>
+<body style="text-align:center;"> 
+
+    <h1 style="color:green;">   
+            {{repo}}
+    </h1> 
+  
+    <h2> 
+      6 Degrees Of Separation    
+    </h2> 
+  
+    <p> 
+      This graph represents all the contributors to the repository: <b>xddd</b> and the connections between them, based on GitHub follwers. <br>
+      If you would like to see a different repository, please enter it's address below.
+    </p>
+    <form action="{{ url_for('index3') }}" method="post">
+        <input type="text" name="repoAddress">
+        <input type="submit">
+    </form>
+
+    <p>  
+      Please enter two usernames separated by a comma and click the button below to see the shortest path between them, if one exists below 
+      6 degrees of separation.
+    </p> 
+  
+    <form action="{{ url_for('index2') }}" method="post">
+        <input type="text" name="source">
+        <input type="text" name="target">
+        <input type="hidden" name="repoAddress">
+        <input type="submit">
+    </form>
+    <p></p>
+    
+<svg width="1900" height="700" id="svg1" style="border:1px solid green"></svg>
+
+</body>
+</html>

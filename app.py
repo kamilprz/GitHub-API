@@ -6,24 +6,33 @@ import collections
 import sys
 import json
 
-from get_json import repoAddress
+from get_json import*
 from degrees import*
  
 app= Flask(__name__)
 
 @app.route("/")
 def index():
-    graph = createFollowerGraph()
-    return render_template("index.html", graph = graph, repo = repoAddress)
+    return render_template("homePage.html")
 
 
 @app.route("/degrees", methods=['POST'])
 def index2():
     source = request.form['source']
     target = request.form['target']
+    repoAddress = request.form['repoAddress']
     generateDegrees(source, target)
     graph = createPathGraph()
-    return render_template("index2.html", graph = graph, repo = repoAddress, sourceUser = source, targetUser = target)
+    return render_template("degreesPage.html", graph = graph, repo = repoAddress, sourceUser = source, targetUser = target)
+
+
+@app.route("/repo", methods=['POST'])
+def index3():
+    repoAddress = request.form['repoAddress']
+    generateFollowers(repoAddress)
+    graph = createFollowerGraph()
+    return render_template("contributorsPage.html", graph = graph, repo = repoAddress)
+
 
 def createFollowerGraph():
     followersGraph = readInFile('data.json')

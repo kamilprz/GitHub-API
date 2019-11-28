@@ -21,7 +21,15 @@
     </h2> 
   
     <p> 
-      This graph represents all the contributors to the repository: <b>{{repo}}</b> and the connections between them, based on GitHub follwers.<br>
+      This graph represents all the contributors to the repository: <b>{{repo}}</b> and the connections between them, based on GitHub follwers. <br>
+      If you would like to see a different repository, please enter it's address below.
+    </p>
+    <form action="{{ url_for('index3') }}" method="post">
+        <input type="text" name="repoAddress">
+        <input type="submit">
+    </form>
+
+    <p>  
       Please enter two usernames separated by a comma and click the button below to see the shortest path between them, if one exists below 
       6 degrees of separation.
     </p> 
@@ -29,6 +37,7 @@
     <form action="{{ url_for('index2') }}" method="post">
         <input type="text" name="source">
         <input type="text" name="target">
+        <input type="hidden" value="{{repo}}" name="repoAddress">
         <input type="submit">
     </form>
     <p></p>

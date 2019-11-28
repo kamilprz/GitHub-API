@@ -7,9 +7,9 @@ password = temp.getPass()
 g = Github("kamilprz", password)
 user = g.get_user()
 
-repoAddress = "nating/cs-exams"
+# repoAddress = "nating/cs-exams"
 
-def main():
+def generateFollowers(repoAddress):
     repo = g.get_repo(repoAddress)
     contributorUsers = repo.get_contributors()
     contributorNames = [getUserName(x) for x in repo.get_contributors()]
@@ -41,5 +41,3 @@ def getUserName(user):
 def intersection(lst1, lst2): 
     lst3 = [value for value in lst1 if value in lst2] 
     return lst3 
-
-main()
