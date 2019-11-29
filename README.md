@@ -41,6 +41,15 @@ The user can then enter an address of a repository - this will redirect them to 
 
 ![](screenshots/repo-input.gif)
 
-From here, the user can either enter a new repository to view, or two usernames of contributors to the currently displayed repo. This will display a graph of the shortest path between the two users if one exists and is within the "Six degrees of separation". The path can consist of any users which are connected to the source and target - the only requirements are that the source and target are both contributors to the current repository, and the path is consistently directed. (again, for the purposes of demonstration the gif has been sped up for the same reasons as previously)
+From here, the user can either enter a new repository to view, or two usernames of contributors to the currently displayed repo. This will redirect them to localhost:5000/degrees and display a graph of the shortest path between the two users if one exists and is within the "Six degrees of separation". The path can consist of any users which are connected to the source and target - the only requirements are that the source and target are both contributors to the current repository, and the path is consistently directed. (again, for the purposes of demonstration the gif has been sped up for the same reasons as previously)
 
 ![](screenshots/users-input.gif)
+
+There is error handling built in. The user will be redirected to localhost:5000/degrees and prompted with an error if either: <br>
+* 1 : At least one of the users requested is not a contributor to the repository in question. <br>
+* 2 : The degree of separation between the two requested users is greater than 6. <br>
+
+From the error page, the user can click "See Contributors" to return to the screen which shows the graph of social connections.
+
+![](screenshots/error-page1.jpg)
+![](screenshots/error-page2.jpg)

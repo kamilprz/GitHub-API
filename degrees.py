@@ -8,57 +8,51 @@ password = temp.getPass()
 g = Github("kamilprz", password)
 user = g.get_user()
 
-def generateDegrees(sourceUser, targetUser):
+def generateDegrees(sourceUser, targetUser, repoAddress):
     source = g.get_user(sourceUser)
     target = g.get_user(targetUser)
 
-    lista = []
+    contributors = g.get_repo(repoAddress).get_contributors()
+    # if source or target not in contributors
+    if (source not in contributors) or (target not in contributors):
+        return -1
 
-    path = (degreesOfSep([source], [target], 1, lista)[2])
+    path = []
+
+    answer = (degreesOfSep([source], [target], 1, path))
+    # if degree of sep > 6
+    if answer == (-1, -1, -1):
+        return -2
+
+    path = answer[2]
     path = [source.login] + path + [target.login]
 
     graphData = createGraphJson(path)
     with open('path.json', 'w') as outfile:
         json.dump(graphData, outfile)
 
-    # srcFollowing = source.get_following()
-    # for x in srcFollowing:
-    #     print(x.login)
-    # print("="*50)
 
-    # srcFollowing2 = [getFollowing(f) for f in srcFollowing]
-    # flat_list = [item for sublist in srcFollowing2 for item in sublist]
-    # print(flat_list)
-    # # srcFollowing3 = [getFollowing(f) for f in srcFollowing2]
-    
-    # check if source and target are in the contributors
-
-def degreesOfSep(source, target, lvl, lista):
+def degreesOfSep(source, target, lvl, path):
     if lvl > 6:
         return (-1, -1, -1)
     # lvl odd so increment followers
     if lvl % 2 == 0:
         compare = [getFollowers(f) for f in target]        
-        #print("Followers - {} ".format(lvl))
         links = source
         compare = [item for subl in compare for item in subl]
     # lvl even so increment following         
     else:
         links = [getFollowing(f) for f in source]
-        #print("Followingi - {} ".format(lvl))
         compare = target
         links = [item for subl in links for item in subl]
     
-    #print("lista {} ".format(str(links)))
-    #print("lista2 {}".format(str(list2)))
 
     n = intersection(links, compare)
-    #print(n)
     if n:
         # take first of intersction
         first = n[0]
         # start a list
-        lista = [first.login]
+        path = [first.login]
         # as intersection can return any of user
         # take a parent from list with parents
         # take child from a list with childs
@@ -69,36 +63,29 @@ def degreesOfSep(source, target, lvl, lista):
         if hasattr(parent, "parent"):
             parent = parent.parent
         else:
-            lista = []
+            path = []
 
         if hasattr(child, "child"):
             child = child.child
         else:
-            lista = []
+            path = []
             
-        return(parent, child, lista)
-    (parent, child, lista) = degreesOfSep(links, compare, lvl+1, lista)
+        return(parent, child, path)
+    (parent, child, path) = degreesOfSep(links, compare, lvl+1, path)
     if parent == -1:
-        return -1
-    #print("wyjscie")
+        return (-1, -1, -1)
     if lvl % 2 == 0:
         # if child is not end user - add child to list
         if ([child] != target):
-            lista = lista + [child.login]
+            path = path + [child.login]
             child = child.child
-        #print(child)
     else:
         # if parent is not start user - add parent to list
         if ([parent] != source):
-            # lista = [links[links.index(parent)].login] + lista 
-            # parent = links[links.index(parent)].parent
-            lista = [parent.login] + lista
+            path = [parent.login] + path
             parent = parent.parent
             
-            
-        #print(parent)
-        
-    return (parent, child, lista)
+    return (parent, child, path)
 
 
 def getFollowers(user):
@@ -138,3 +125,4 @@ def createGraphJson(path):
         })
 
     return graphData
+

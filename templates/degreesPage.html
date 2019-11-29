@@ -25,13 +25,12 @@
       If you wish to go back to the graph of contributors, please click the button below.
     </p> 
   
-    <button type="button" 
-        onclick="location.href = '/repo'"> 
-        See Contributors
-    </button> 
-  
-    <p id="demo"></p> 
+    <form action="{{ url_for('index3') }}" method="post">
+        <input type="submit" value="See Contributors">
+        <input type="hidden" value="{{repo}}" name="repoAddress">
+    </form>
 
+    <br>
 
 
 <svg width="1900" height="700" id="svg1" style="border:1px solid green"></svg>

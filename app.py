@@ -21,9 +21,16 @@ def index2():
     source = request.form['source']
     target = request.form['target']
     repoAddress = request.form['repoAddress']
-    generateDegrees(source, target)
-    graph = createPathGraph()
-    return render_template("degreesPage.html", graph = graph, repo = repoAddress, sourceUser = source, targetUser = target)
+    result = generateDegrees(source, target, repoAddress)
+    # error 1
+    if result == -1:
+        return render_template("degreesError.html", repo = repoAddress, error = "At least one of the users is not a contributor to this repository.")
+    # error 2
+    elif result == -2:
+       return render_template("degreesError.html", repo = repoAddress, error = "The degree of separation is over 6.")
+    else:
+        graph = createPathGraph()
+        return render_template("degreesPage.html", graph = graph, repo = repoAddress, sourceUser = source, targetUser = target)
 
 
 @app.route("/repo", methods=['POST'])

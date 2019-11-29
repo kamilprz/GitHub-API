@@ -7,8 +7,6 @@ password = temp.getPass()
 g = Github("kamilprz", password)
 user = g.get_user()
 
-# repoAddress = "nating/cs-exams"
-
 def generateFollowers(repoAddress):
     repo = g.get_repo(repoAddress)
     contributorUsers = repo.get_contributors()
