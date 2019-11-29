@@ -45,6 +45,17 @@ From here, the user can either enter a new repository to view, or two usernames 
 
 ![](screenshots/users-input.gif)
 
+The algorithmic approach to calculating the shortest path between source and target after finding the degree of separation is as follows. 
+* Expand the source by a "degree".
+* Check for intersection with target.
+* Expand the target by a "degree"
+* Check for intersection with source.
+* Continue until intersection found or until source and target both expanded by 3 "degrees" - at which point you're at the maximum 6 degrees.
+
+Here "expand" means to get all the nodes in the next degree of separation. (For example, getting all the followers of each follower of the target would be equivalent to expanding the target for a 2nd time)
+
+* If an intersection is found, return back and build a path through parents and children.
+
 There is error handling built in. The user will be redirected to localhost:5000/degrees and prompted with an error if either: <br>
 * 1 : At least one of the users requested is not a contributor to the repository in question. <br>
 * 2 : The degree of separation between the two requested users is greater than 6. <br>
