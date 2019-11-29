@@ -11,38 +11,34 @@
     </style>
 </head>
 <body style="text-align:center;"> 
-
+    <br>
+    <br>
+    <br>
+    <br>
     <h1 style="color:green;">   
-            {{repo}}
+      6 Degrees Of Separation
     </h1> 
-  
-    <h2> 
-      6 Degrees Of Separation    
-    </h2> 
-  
+
     <p> 
-      This graph represents all the contributors to the repository: <b>xddd</b> and the connections between them, based on GitHub follwers. <br>
-      If you would like to see a different repository, please enter it's address below.
+      This is a project which visualises the social connections of developers in a GitHub repo <br>
+      and checks if the idea of "Six degrees of separation" applies to developers.
+      <br> <br>
+      <b>Six degrees of separation</b> - is the idea that all people are six, or fewer, social connections away from each other. <br>
+      As a result, a chain of "a friend of a friend" statements can be made to connect any two people in a maximum of six steps.
+      <br> <br>
+      Please enter the address of a GitHub repository into the field below to see a graph of all the connections
+      of its developers. <br>
+      Example input: nating/cs-exams
     </p>
     <form action="{{ url_for('index3') }}" method="post">
         <input type="text" name="repoAddress">
         <input type="submit">
     </form>
-
-    <p>  
-      Please enter two usernames separated by a comma and click the button below to see the shortest path between them, if one exists below 
-      6 degrees of separation.
-    </p> 
-  
-    <form action="{{ url_for('index2') }}" method="post">
-        <input type="text" name="source">
-        <input type="text" name="target">
-        <input type="hidden" name="repoAddress">
-        <input type="submit">
-    </form>
-    <p></p>
-    
-<svg width="1900" height="700" id="svg1" style="border:1px solid green"></svg>
+    <br>
+    <p>
+      Kamil Przepiórowski
+      <a href="https://github.com/kamilprz">github.com/kamilprz</a>
+    </p>
 
 </body>
 </html>
