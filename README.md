@@ -9,7 +9,7 @@ The assignment demonstrates the use of the PyGithub library for Python to retrie
 
 This basic implementation pulls all of the repos from my account and prints out their name and latest commit id in the console.
 
-![](screenshots/github-access-console.jpg)
+![](screenshots/github-access-console.png)
 
 Found in file 'testing.py', the commit which identifies this assignment is 1f61fd361a4536cf17b7698fd8d4260f5140d475.
 
@@ -35,7 +35,7 @@ The project uses locally stored JSON files rather than a database to store the f
 
 The landing page localhost:5000 has a description of the project and the expected user input. The user can enter the address of a repository and click submit - this will display a force directed graph of all the contributors to the repository and the connections between them based on GitHub followers.
 
-![](screenshots/landing-page.jpg)
+![](screenshots/landing-page.png)
 
 The user can then enter an address of a repository - this will redirect them to localhost:5000/repo where a force directed graph will be displayed. (for the purposes of demonstration the gif has been sped up to show off the functionality, in practise the loading time is longer as all the data needs to be fetched from GitHub first)
 
