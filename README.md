@@ -1,25 +1,11 @@
-# GitHub-API
+# Visualising Connections Between GitHub Developers
 
-# GitHub Access
 ## Task
-Interrogate the GitHub API to retrieve and display data regarding the logged in developer.
 
-## Description
-The assignment demonstrates the use of the PyGithub library for Python to retrieve and display data from GitHub. It builds a basis for the Visualising GitHub project.
-
-This basic implementation pulls all of the repos from my account and prints out their name and latest commit id in the console.
-
-![](screenshots/github-access-console.png)
-
-Found in file 'testing.py', the commit which identifies this assignment is 1f61fd361a4536cf17b7698fd8d4260f5140d475.
-
-<br>
-
-# Visualising GitHub
-## Task
 Interrogate the GitHub API to build visualisation of data available that elucidates some aspect of the softare engineering process, such as a social graph of developers and projects, or a visualisation of indiviudal of team performance. Provide a visualisation of this using the d3js library.
 
 ## Description
+
 For this project I decided to do something regarding social connections between people. I previously heard about the 6 degrees of separation idea and decided to test if it's true between developers on GitHub.
 
 **Six degrees of separation** - is the idea that all people are six, or fewer, social connections away from each other. Often called as 6 Handshakes rule. As a result, a chain of "a friend of a friend" statements can be made to connect any two people in a maximum of six steps.
